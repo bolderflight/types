@@ -71,7 +71,7 @@ enum GnssFix : int8_t {
   GNSS_FIX_RTK_FIXED = 6
 };
 
-class Imu {
+class ImuData {
  public:
   int8_t status;
   bool new_data;
@@ -80,7 +80,7 @@ class Imu {
   float gyro_radps[3];
 };
 
-class Mag {
+class MagData {
  public:
   int8_t status;
   bool new_data;
@@ -88,7 +88,7 @@ class Mag {
   float mag_ut[3];
 };
 
-class Gnss {
+class GnssData {
  public:
   int8_t status;
   bool new_data;
@@ -108,7 +108,7 @@ class Gnss {
   double ecef_pos_m[3];
 };
 
-class GnssRelPos {
+class GnssRelPosData {
  public:
   int8_t status;
   bool moving_baseline;
@@ -117,7 +117,7 @@ class GnssRelPos {
   double rel_pos_ned_m[3];
 };
 
-class StaticPress {
+class StaticPressData {
  public:
   int8_t status;
   bool new_data;
@@ -125,7 +125,7 @@ class StaticPress {
   float pres_pa;
 };
 
-class DiffPress {
+class DiffPressData {
  public:
   int8_t status;
   bool new_data;
@@ -133,7 +133,7 @@ class DiffPress {
   float pres_pa;
 };
 
-class Inceptor {
+class InceptorData {
  public:
   static constexpr int8_t max_ch = 32;
   int8_t status;
