@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.4.0
+- Simplifying sensor status a bit more.
+
 ## v0.3.0
 - Added *initialized* and *calibrated* states to indicate completion of *initializing* and *calibrating*.
 
