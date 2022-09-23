@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.5.0
+- Working on sensor status more.
+
 ## v0.4.0
 - Simplifying sensor status a bit more.
 
