@@ -1,5 +1,8 @@
 # Changelog
 
+## v0.6.0
+- Simplifying types more.
+
 ## v0.5.0
 - Working on sensor status more.
 

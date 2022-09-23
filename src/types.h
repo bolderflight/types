@@ -32,40 +32,6 @@
 
 namespace bfs {
 
-enum SensorStatus : int8_t {
-  SENSOR_FAULT = -2,
-  SENSOR_MISSED_FRAME = -1,
-  SENSOR_NOT_INSTALLED = 0,
-  SENSOR_INSTALLED = 1,
-  SENSOR_INITIALIZING = 2,
-  SENSOR_INITIALIZED = 3,
-  SENSOR_CALIBRATING = 4,
-  SENSOR_CALIBRATED = 5,
-  SENSOR_HEALTHY = 6
-};
-
-enum RelPosStatus : int8_t {
-  REL_POS_FAULT = -2,
-  REL_POS_MISSED_FRAME = -1,
-  REL_POS_NOT_AVAIL = 0,
-  REL_POS_AVAIL = 1,
-  REL_POS_INITIALIZING = 2,
-  REL_POS_HEALTHY = 3,
-};
-
-enum AdcStatus : int8_t {
-  ADC_FAULT = -1,
-  ADC_INITIALIZING = 1,
-  ADC_HEALTHY = 2
-};
-
-enum InsStatus : int8_t {
-  INS_FAULT = -1,
-  INS_INITIALIZING = 1,
-  INS_ALIGNING = 2,
-  INS_HEALTHY = 3
-};
-
 enum GnssFix : int8_t {
   GNSS_FIX_NONE = 1,
   GNSS_FIX_2D = 2,
@@ -77,7 +43,7 @@ enum GnssFix : int8_t {
 
 class ImuData {
  public:
-  int8_t status;
+  bool installed;
   bool new_data;
   float die_temp_c;
   float accel_mps2[3];
@@ -86,15 +52,24 @@ class ImuData {
 
 class MagData {
  public:
-  int8_t status;
+  bool installed;
   bool new_data;
   float die_temp_c;
   float mag_ut[3];
 };
 
+class GnssRelPosData {
+ public:
+  bool avail;
+  bool moving_baseline;
+  bool baseline_normalized;
+  float rel_pos_acc_ned_m[3];
+  double rel_pos_ned_m[3];
+};
+
 class GnssData {
  public:
-  int8_t status;
+  bool installed;
   bool new_data;
   int8_t fix;
   int8_t num_sats;
@@ -112,18 +87,9 @@ class GnssData {
   double ecef_pos_m[3];
 };
 
-class GnssRelPosData {
- public:
-  int8_t status;
-  bool moving_baseline;
-  bool baseline_normalized;
-  float rel_pos_acc_ned_m[3];
-  double rel_pos_ned_m[3];
-};
-
 class StaticPressData {
  public:
-  int8_t status;
+  bool installed;
   bool new_data;
   float die_temp_c;
   float pres_pa;
@@ -131,7 +97,7 @@ class StaticPressData {
 
 class DiffPressData {
  public:
-  int8_t status;
+  bool installed;
   bool new_data;
   float die_temp_c;
   float pres_pa;
@@ -139,15 +105,16 @@ class DiffPressData {
 
 class InceptorData {
  public:
-  static constexpr int8_t max_ch = 32;
-  int8_t status;
+  static constexpr int8_t max_ch = 16;
+  bool installed;
+  bool lost_frame;
+  bool failsafe;
   int8_t num_ch;
   std::array<float, max_ch> inputs;
 };
 
 class AdcData {
  public:
-  int8_t status;
   float static_pres_pa;
   float diff_pres_pa;
   float pres_alt_m;
@@ -156,7 +123,7 @@ class AdcData {
 
 class InsData {
  public:
-  int8_t status;
+  bool ins_initialized;
   float pitch_rad;
   float roll_rad;
   float heading_rad;
